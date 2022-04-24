@@ -1,126 +1,204 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>notes</title>
+    <script type="text/babel" src="like_button.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style type="text/css" media="all">
-    *{
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-  
-      .sf{height:20px;
-        width: 100%;
-        margin-bottom: 10px;
-        margin-top: 5px;
-        display: flex;
-      }
-      #tes{
-        background: red;
-        width: 100%;
-       
-      
-        z-index: 999;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      }
-      #items{
-          margin:3px;
-      }
-      .item{height: 13vh;
-      width: 100%;
-      border: 0.1px solid #260052;
-margin-bottom: 8px;
-padding: 10px;
-position: relative;
-transition: 1s ease-in;
+        .sf {
+            height: 50px;
+            width: 90%;
+            margin-left: 5%;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border-radius: 23px;
+            display: flex;
+            position: relative;
 
-      border-radius: 12px;
-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-      }
-      li{list-style: none;
-      }
-      .newNonte{
-          position: fixed;
-          bottom: 0;
-          right: 27vw;
-          width: 45vw;
-          height: 60px;
-          border: 1px solid #0eb2ff;
-          border-top-left-radius: 20px;
-          border-top-right-radius: 20px;
-         text-align: center;
-          background: royalblue;
-          
-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        }
+
+        #tes {
+            background: red;
+            width: 100%;
+
+
+            z-index: 999;
+
+        }
+
+        #items {
+            margin: 3px;
+        }
+
+        .item {
+            height: 80px;
+            width: 100%;
+            border: 0.1px solid #260052;
+            margin-bottom: 8px;
+            padding: 10px;
+            position: relative;
+            transition: 1s ease-in;
+            overflow: hidden;
+
+            border-radius: 12px;
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .newNonte {
+            position: fixed;
+            bottom: 0;
+            right: 27vw;
+            width: 45vw;
+            height: 60px;
+            border: 1px solid #0eb2ff;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            text-align: center;
+            background: royalblue;
+
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+        }
+
+        #create {
+
+            font-size: 25px;
+            font-style: italic;
+            color: white;
+
+        }
+
+        .sort {
+            position: absolute;
+            padding: 15px;
+            left: 3px;
+        }
+
+        .filter {
+            padding: 15px;
+            position: absolute;
+            right: 3px;
+
+        }
+
+        select {
+            border: none;
+            background: transparent;
+        }
+        
+        
+        
      
-      }
-      #create{
-          
-          font-size: 25px;
-          font-style: italic;
-          color: white;
-          
-      }
+@media only screen and (min-width: 300px){
+    .front{
+        width: 30%;
+        height: 94vh!important;
+        display: flex!important;
+        overflow-y:scroll ;
+        overflow-x: hidden;
+    }
+    #textarea{
+        width: 69%!important;
+        position:relative;
+     
+      float: right!important;
+      
+        
+        display:inline-block!important;
+    }
+    #sf{
+        display: block!important;
+    }
+    #newNonte{
+        width: 30%;
+        height: 6vh;
+        left:0;
+        z-index: 9999;
+    }
+    
+}   
+        
     </style>
     <script src="https://unpkg.com/localbase/dist/localbase.min.js"></script>
-<script type="text/javascript" charset="utf-8">
-    /**
- * Returns the week number for this date.  dowOffset is the day of week the week
- * "starts" on for your locale - it can be from 0 to 6. If dowOffset is 1 (Monday),
- * the week returned is the ISO 8601 week number.
- * @param int dowOffset
- * @return int
- */
-Date.prototype.getWeek = function (dowOffset) {
-/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
+    <script type="text/javascript" charset="utf-8">
+        /**
+         * Returns the week number for this date.  dowOffset is the day of week the week
+         * "starts" on for your locale - it can be from 0 to 6. If dowOffset is 1 (Monday),
+         * the week returned is the ISO 8601 week number.
+         * @param int dowOffset
+         * @return int
+         */
+        Date.prototype.getWeek = function(dowOffset) {
 
-    dowOffset = typeof(dowOffset) == 'number' ? dowOffset : 0; //default dowOffset to zero
-    var newYear = new Date(this.getFullYear(),0,1);
-    var day = newYear.getDay() - dowOffset; //the day of week the year begins on
-    day = (day >= 0 ? day : day + 7);
-    var daynum = Math.floor((this.getTime() - newYear.getTime() - 
-    (this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) + 1;
-    var weeknum;
-    //if the year starts before the middle of a week
-    if(day < 4) {
-        weeknum = Math.floor((daynum+day-1)/7) + 1;
-        if(weeknum > 52) {
-            nYear = new Date(this.getFullYear() + 1,0,1);
-            nday = nYear.getDay() - dowOffset;
-            nday = nday >= 0 ? nday : nday + 7;
-            /*if the next year starts before the middle of
-              the week, it is week #1 of that year*/
-            weeknum = nday < 4 ? 1 : 53;
-        }
-    }
-    else {
-        weeknum = Math.floor((daynum+day-1)/7);
-    }
-    return weeknum;
-};
-</script>
-<script>
-var dates=new Date();
-  let db = new Localbase("notes")
-</script>
-  </head>
-  <body>
+
+            dowOffset = typeof(dowOffset) == 'number' ? dowOffset : 0; //default dowOffset to zero
+            var newYear = new Date(this.getFullYear(), 0, 1);
+            var day = newYear.getDay() - dowOffset; //the day of week the year begins on
+            day = (day >= 0 ? day : day + 7);
+            var daynum = Math.floor((this.getTime() - newYear.getTime() -
+                (this.getTimezoneOffset() - newYear.getTimezoneOffset()) * 60000) / 86400000) + 1;
+            var weeknum;
+            //if the year starts before the middle of a week
+            if (day < 4) {
+                weeknum = Math.floor((daynum + day - 1) / 7) + 1;
+                if (weeknum > 52) {
+                    nYear = new Date(this.getFullYear() + 1, 0, 1);
+                    nday = nYear.getDay() - dowOffset;
+                    nday = nday >= 0 ? nday : nday + 7;
+                    /*if the next year starts before the middle of
+                      the week, it is week #1 of that year*/
+                    weeknum = nday < 4 ? 1 : 53;
+                }
+            } else {
+                weeknum = Math.floor((daynum + day - 1) / 7);
+            }
+            return weeknum;
+        };
+    </script>
+    <script>
+        var dates = new Date();
+        let db = new Localbase("notes")
+    </script>
+</head>
+
+<body>
+    <div id="textarea" style="position:relative;width:100%;height:100vh;z-index:9999;top:0;display:none;">
+        <button id="backbtn" onclick="document.getElementById('textarea').style.display='none';document.getElementById('items').style.display='block';document.getElementById('sf').style.display='block';reset();checkSort();" style="position:absolute; right:20px;top:10px;z-index:99;width:20px;height:20px;">
+            <--</button>
+                <textarea name="textbox" id="textbox" rows="15" cols="40" style="width:100%;height:100%;" placeholder="enter text here........." data-pid="" onkeyup="save(parseInt(this.dataset.pid),this.value)"></textarea>
+
+    </div>
+    
+    
     <div class="front" id="sf">
-      <div class="sf">
-        <div class="sort">
-        <label for="sortval">sort By</label>
+        <div class="sf">
+            <div class="sort" id="sort-react">
+
+                <!--<label class="fa fa-sort" for="sortval"></label>
           <select name="sortval" id="sortval" onchange="checkSort()">
               <option value="desc">newest first</option>
            <option value="asen">oldest first</option>
             
-          </select>
-        </div>
-        <div class="filter" style="margin-left:30px;">
-            <label for="filterval">Filter By</label>
-          <select name="filterval" id="filterval" onchange="filter()">
+          </select>-->
+            </div>
+            <div class="filter" id="filter-react">
+                <!--<i class="fa fa-filter" onclick="filterval.click()"></i>
+            
+          <select name="filterval" id="filterval" onchange="filter()" >
         <option >Select Filter</option>
              
       <option value="Year" >Year</option>
@@ -129,226 +207,263 @@ var dates=new Date();
     <option value="none">clear Filters</option>
             
           </select>
+          -->
+            </div>
         </div>
-      </div>
-      <div class="noteslist" id="items">
+        <div class="noteslist" id="items">
+
+            <!--notes gose here-->
+        </div>
         
-      
-      </div>
-      <div class="newNonte" onclick="newNonte()" id="newNonte">
-          <b id="create">new Note <br />+</b>
-      </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="newNonte" onclick="newNonte()" id="newNonte">
+            <b id="create">new Note <br />+</b>
+        </div>
 
     </div>
-    <div id="textarea" style="position:relative;width:100%;height:100vh;z-index:9999;top:0;display:none;">
-        <button onclick="document.getElementById('textarea').style.display='none';document.getElementById('items').style.display='block';document.getElementById('sf').style.display='block';checkSort();" style="position:absolute; right:20px;top:10px;z-index:99;width:20px;height:20px;" ><--</button>
-        <textarea name="textbox" id="textbox" rows="15" cols="40" style="width:100%;height:100%;" placeholder="enter text here........." data-pid="" onkeyup="save(parseInt(this.dataset.pid),this.value)"></textarea>
-   
-    </div>
+    
     <script type="text/javascript" charset="utf-8">
-    /*for(var i=1;i<=100;i++){
+        /*
+ function generateFakeData(){
+ for(var i=1;i<=100;i++){
  db.collection('allNotes').doc({id:i}).set({
    id:i,
    body:"billl"+i,
   date:new Date().toLocaleString(). replace(","," "),
   datems: new Date().getTime()
 })}
+}
 dates=[];*/
- var newid;
-    if(localStorage.getItem("lastid")){
-        newid=localStorage.getItem("lastid")
-    }
-    else{
-    localStorage.setItem("lastid",18000)}
+        var newid;
+        if (localStorage.getItem("lastid")) {
+            newid = localStorage.getItem("lastid")
+        } else {
+            localStorage.setItem("lastid", 18000)
+        }
 
-function newNonte(){
-    localStorage.setItem("lastid",parseInt(localStorage.getItem("lastid"))+1)  
-    db.collection("allNotes").add({
-        id:parseInt(localStorage.getItem("lastid")),
-        body:"",
-       date:new Date().toLocaleString(). replace(","," "),
-        datems:new Date().getTime()
-    }
-        )
-     document.getElementById("textbox").value="";
-   update(parseInt(localStorage.getItem("lastid")))
-   
-}
-   
-
-function remove(self){
-  
-  db.collection("allNotes").doc({id:parseInt(self.className)}).delete()
-  
-  document.getElementById(self.className).style.display='none';
-}
-function substr(theString, numWords) {
-    var expString = theString.split(/\s+/,numWords);
-   var theNewString=expString.join(" ");
-    return theNewString;
+function reset(){
+document.getElementById("textbox").disabled=true
 }
 
 
-function update(pid){
-    document.getElementById('textbox').dataset.pid=pid
-    document.getElementById("sf").style.display= 'none';
-  document.getElementById('textarea').style.display='block';
-  document.getElementById('items').style.display='none';
-  var input=document.getElementById("textbox")
-  input.placeholder= "you are editing note Number "+pid;
-  db.collection("allNotes").doc({id:parseInt(pid)}).get().then(data=>{input.value=data['body']
-})
-}
-function save(pid,text){
-    console.log(pid+"___"+text)
-    //if(idexist(parseInt(pid)))
-        console.log("working")
-        db.collection("allNotes").doc({id:parseInt(pid)}).update({
-            body:text,
-        date:new Date().toLocaleString(). replace(","," "),
-        datems:new Date().getTime()
-        
-        })
-        
-        
-        
-    
-}
+        function newNonte() {
+            localStorage.setItem("lastid", parseInt(localStorage.getItem("lastid")) + 1)
+            db.collection("allNotes").add({
+                id: parseInt(localStorage.getItem("lastid")),
+                body: "",
+                date: new Date().toLocaleString().replace(",", " "),
+                datems: new Date().getTime()
+            })
+            document.getElementById("textbox").value = "";
+            update(parseInt(localStorage.getItem("lastid")))
+
+        }
+
+
+        function remove(self) {
+            
+            
+            db.collection("allNotes").doc({
+                id: parseInt(self.className)
+            }).delete()
+
+            
+            document.getElementById(self.className.split(" ")[0]).style.display = 'none';
+        }
+
+        function substr(theString, numWords) {
+            var expString = theString.split(/\s+/, numWords);
+            var theNewString = expString.join(" ");
+            return theNewString;
+        }
+document.getElementById("textbox").disabled=true
+
+        function update(pid) {
+     document.getElementById("textbox").disabled=false
+            document.getElementById('textbox').dataset.pid = pid
+            document.getElementById("sf").style.display = 'none';
+            document.getElementById('textarea').style.display = 'block';
+            document.getElementById('items').style.display = 'none';
+            var input = document.getElementById("textbox")
+            input.placeholder = "you are editing note Number " + pid;
+            db.collection("allNotes").doc({
+                id: parseInt(pid)
+            }).get().then(data => {
+                input.value = data['body']
+            })
+        }
 
 
 
 
-function idexist(pid){
-    var status;
-  db.collection("allNotes").doc({id:parseInt(pid)}).get().then(data=>{
-      
-      if(data['id']>=1){status= true;}
-                   else{status= false;}
-  })
-return status
-}
+        function idexist(pid) {
+            var status;
+            db.collection("allNotes").doc({
+                id: parseInt(pid)
+            }).get().then(data => {
+
+                if (data['id'] >= 1) {
+                    status = true;
+                } else {
+                    status = false;
+                }
+            })
+            return status
+        }
 
 
 
-function createitem(id,body,date){
-  var li=document.createElement("li");
-  li.className="item"
-  li.id=id;
-  li.setAttribute("onclick","update(this.id)")
-  li.innerHTML=substr(body,5)+"___"+id+"<p class='"+id+"' onclick='remove(this)' style='width:25px; height:30px;right:15px; position: absolute;top:10px;z-index:9999;background:#ff0000;color :white;border-radius:3px;'>🗑️</p>"+"<small style='right:5px; position: absolute;bottom:0;'>"+date+"</small>";
-  document.getElementById("items").appendChild(li)
-  
-  
-}
-function filter(){
-    
-    
-  
-    let ftype=document.getElementById("filterval").value
-if(ftype=="Year"){
-let years=prompt("Enter the year to search...")
-if(years){filterByYear(years)
-    filterval.selectedIndex=0
-}
-}
-else if(ftype=="Month"){
-   
-   let month=prompt("Enter the month no. to search... [January=1 .... December=12]")
-if(month){filterByMonth(month)}
-    
-    filterval.selectedIndex=0
-}
-else if(ftype=="Week"){
-   let month=prompt("Enter the week no. to search..")
-if(month){filterByMonth(month)}
-    filterByWeek(month)
-    filterval.selectedIndex=0}
-else{checkSort();filterval.selectedIndex=0}
-}
-
-function filterByYear(year){
-    document.getElementById("items").innerHTML='<center></center>';
-    let arr;
-        db.collection("allNotes").get().then(user=>{
-    arr=user.filter(
- a=>new Date(a["datems"]).getFullYear() ==year)
- for(var j=0;j<=arr.length;j++){
-  createitem(arr[j]['id'],arr[j]['body'],arr[j]['date'])
-
-  }
-                           })
-
-     }
-function filterByMonth(month){
-   document.getElementById("items").innerHTML='<center></center>';
-    let arr;
-        db.collection("allNotes").get().then(user=>{
-    arr=user.filter(
- a=>new Date(a["datems"]).getMonth() ==month-1)
- for(var j=0;j<=arr.length;j++){
-  createitem(arr[j]['id'],arr[j]['body'],arr[j]['date'])
-
-  }
-                           })
-
-     }
-function filterByDate(date){
-    document.getElementById("items").innerHTML='<center></center>';
-    let arr;
-        db.collection("allNotes").get().then(user=>{
-    arr=user.filter(
- a=>{new Date(a["datems"]).toLocaleString().split(",")[0] == new Date(date).toLocaleString().split(",")[0]
-     console.log(new Date(a["datems"]).toLocaleString().split(",")[0] +"_______"+new Date(date).toLocaleString().split(",")[0])
- }
- )
- console.log(arr)
- for(var j=0;j<=arr.length;j++){
-  createitem(arr[j]['id'],arr[j]['body'],arr[j]['date'])}
-                          })
-
-     }
-function filterByWeek(week){
-    document.getElementById("items").innerHTML='<center></center>';
-    let arr;
-        db.collection("allNotes").get().then(user=>{
-    arr=user.filter(
- a=>new Date(a["datems"]).getWeek()==parseInt(week))
- for(var j=0;j<=arr.length;j++){
-  createitem(arr[j]['id'],arr[j]['body'],arr[j]['date'])
-
-  }
-                           })
-
-     }
+        function createitem(id, body, date) {
+            var li = document.createElement("li");
+            li.className = "item"
+            li.id = id;
+            li.setAttribute("ondblclick", "update(this.id)")
+            li.innerHTML = substr(body, 5) + "___" + id + "<p class='" + id + " fa fa-trash' onclick='remove(this)' style='font-size:26px;right:15px; position: absolute;top:10px;z-index:9999;color :red;border-radius:3px;'></p>" + "<small style='right:5px; position: absolute;bottom:0;'>" + date + "</small>";
+            document.getElementById("items").appendChild(li)
 
 
-function checkSort(){
-if(document.getElementById("sortval").value=="desc"){
- document.getElementById("items").innerHTML='';
-db.collection('allNotes').orderBy('datems','desc').get().then(users => {
-  for(var j=0;j<=[...users].length;j++){
-  createitem(users[j]['id'],users[j]['body'],users[j]['date'])
+        }
 
-  }
-})
-    
-}
-else{
-    document.getElementById("items").innerHTML='';
-    db.collection('allNotes').orderBy('datems').get().then(users => {
-  for(var j=0;j<=[...users].length;j++){
-  createitem(users[j]['id'],users[j]['body'],users[j]['date'])
+        function filter() {
 
-  }
-})
-}
-}
 
-checkSort()
-//  [
-//    { id: 1, name: 'Bill', age: 47 },
-//    { id: 2, name: 'Paul', age: 34 }
-//  ]
+
+            let ftype = document.getElementById("filterval").value
+            if (ftype == "Year") {
+                let years = prompt("Enter the year to search...")
+                if (years) {
+                    filterByYear(years)
+                    filterval.selectedIndex = 0
+                }
+            } else if (ftype == "Month") {
+
+                let month = prompt("Enter the month no. to search... [January=1 .... December=12]")
+                if (month) {
+                    filterByMonth(month)
+                }
+
+                filterval.selectedIndex = 0
+            } else if (ftype == "Week") {
+                let weeks = prompt("Enter the week no. to search..")
+                if (weeks) {
+                    filterByWeek(weeks)
+                }
+
+                filterval.selectedIndex = 0
+            } else {
+                checkSort();
+                filterval.selectedIndex = 0
+            }
+        }
+
+        function filterByYear(year) {
+            document.getElementById("items").innerHTML = '<center></center>';
+            let arr;
+            db.collection("allNotes").get().then(user => {
+                arr = user.filter(
+                    a => new Date(a["datems"]).getFullYear() == year)
+                for (var j = 0; j <= arr.length; j++) {
+                    createitem(arr[j]['id'], arr[j]['body'], arr[j]['date'])
+
+                }
+            })
+
+        }
+
+        function filterByMonth(month) {
+            document.getElementById("items").innerHTML = '<center></center>';
+            let arr;
+            db.collection("allNotes").get().then(user => {
+                arr = user.filter(
+                    a => new Date(a["datems"]).getMonth() == month - 1)
+                for (var j = 0; j <= arr.length; j++) {
+                    createitem(arr[j]['id'], arr[j]['body'], arr[j]['date'])
+
+                }
+            })
+
+        }
+
+        function filterByDate(date) {
+            document.getElementById("items").innerHTML = '<center></center>';
+            let arr;
+            db.collection("allNotes").get().then(user => {
+                arr = user.filter(
+                    a => {
+                        new Date(a["datems"]).toLocaleString().split(",")[0] == new Date(date).toLocaleString().split(",")[0]
+                        console.log(new Date(a["datems"]).toLocaleString().split(",")[0] + "_______" + new Date(date).toLocaleString().split(",")[0])
+                    }
+                )
+                console.log(arr)
+                for (var j = 0; j <= arr.length; j++) {
+                    createitem(arr[j]['id'], arr[j]['body'], arr[j]['date'])
+                }
+            })
+
+        }
+
+        function filterByWeek(week) {
+            document.getElementById("items").innerHTML = '<center></center>';
+            let arr;
+            db.collection("allNotes").get().then(user => {
+                arr = user.filter(
+                    a => new Date(a["datems"]).getWeek() == parseInt(week))
+                for (var j = 0; j <= arr.length; j++) {
+                    createitem(arr[j]['id'], arr[j]['body'], arr[j]['date'])
+
+                }
+            })
+
+        }
+
+
+        function checkSort() {
+            if (document.getElementById("sortval").value == "desc") {
+                document.getElementById("items").innerHTML = '';
+                db.collection('allNotes').orderBy('datems', 'desc').get().then(users => {
+                    for (var j = 0; j <= [...users].length; j++) {
+                        createitem(users[j]['id'], users[j]['body'], users[j]['date'])
+
+                    }
+                })
+
+            } else {
+                document.getElementById("items").innerHTML = '';
+                db.collection('allNotes').orderBy('datems').get().then(users => {
+                    for (var j = 0; j <= [...users].length; j++) {
+                        createitem(users[j]['id'], users[j]['body'], users[j]['date'])
+
+                    }
+                })
+            }
+        }
+
+
+        //  [
+        //    { id: 1, name: 'Bill', age: 47 },
+        //    { id: 2, name: 'Paul', age: 34 }
+        //  ]
     </script>
-  </body>
+
+
+
+
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+
+
+
+
+</body>
+
 </html>
