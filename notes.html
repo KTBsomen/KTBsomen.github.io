@@ -231,7 +231,7 @@
     </div>
     
     <script type="text/javascript" charset="utf-8">
-   db.collection("allNotes").get().then(data=>{if(data.length<=1){db.collection("allNotes").add({
+   db.collection("allNotes").get().then(data=>{if(data.length==0){db.collection("allNotes").add({
                 id: 0,
                 body: "Double Click/touch to open note. This is the how to guide. It is very easy to use but powerful note app. Just click on the blue button (new Note +) and after writing click on the back button on the up right side of the textarea where you write your notes. Use filter to narrow down your search for notes.",
                 date: new Date().toLocaleString().replace(",", " "),
