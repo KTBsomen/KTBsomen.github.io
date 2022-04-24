@@ -177,8 +177,8 @@
 
 <body>
     <div id="textarea" style="position:relative;width:100%;height:100vh;z-index:9999;top:0;display:none;">
-        <button id="backbtn" onclick="document.getElementById('textarea').style.display='none';document.getElementById('items').style.display='block';document.getElementById('sf').style.display='block';reset();checkSort();" style="position:absolute; right:20px;top:10px;z-index:99;width:20px;height:20px;">
-            <--</button>
+        <button id="backbtn" class="fa fa-arrow-left" onclick="document.getElementById('textarea').style.display='none';document.getElementById('items').style.display='block';document.getElementById('sf').style.display='block';reset();checkSort();" style="position:absolute; right:20px;top:10px;width:20px;height:20px;color:white; background:royalblue">
+            </button>
                 <textarea name="textbox" id="textbox" rows="15" cols="40" style="width:100%;height:100%;" placeholder="enter text here........." data-pid="" onkeyup="save(parseInt(this.dataset.pid),this.value)"></textarea>
 
     </div>
@@ -230,17 +230,19 @@
     </div>
     
     <script type="text/javascript" charset="utf-8">
-   db.collection("allNotes").add({
+   db.collection("allNotes").get().then(data=>{if(data.length<=1){db.collection("allNotes").add({
                 id: 0,
                 body: "Double Click/touch to open note. This is the how to guide. It is very easy to use but powerful note app. Just click on the blue button (new Note +) and after writing click on the back button on the up right side of the textarea where you write your notes. Use filter to narrow down your search for notes.",
                 date: new Date().toLocaleString().replace(",", " "),
                 datems: new Date().getTime()
-            })
+            }) }})
         var newid;
         if (localStorage.getItem("lastid")) {
             newid = localStorage.getItem("lastid")
         } else {
             localStorage.setItem("lastid", 18000)
+            
+
         }
 
 function reset(){
