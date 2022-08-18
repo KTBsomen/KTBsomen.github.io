@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+         .con{
+             height: 200px;
+            width: fit-content;
+            max-width: 300px;
+             box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+             padding: 10px;
+             margin: 20px;
+             margin-right: auto;
+             margin-left: auto;
+             border-radius: 20px;
+         }
+         .input{
+             display:block;
+             margin-bottom: 10px;
+             
+         }
+         span{display: inline-block;
+             font-family: cursive;
+             font-size: 20px;
+             
+         }
+          label{font-family: "Comic Sans MS";}
+          .down{
+              margin: 20px;
+          }
+          #carb{
+              font-size: 25px;
+             
+          }
+      </style> 
+   </head>
+    
+    <body>
+        <center><h1>Do you know how much Calories you burn while you sleep</h1><h3>let's calculate</h3></center>
+        <div class="con">
+   <label for="weight"> Body weight: </label>
+     <div class="input"><input type="number" name="weight" id="weight" onkeyup="calculate()"><span>Kg</span></div>
+   <label for="sleep"> sleep time: </label>
+     <div class="input"><input type="number" name="sleep" id="sleep" onkeyup="calculate()"><span>Hours</span></div>
+            
+<div class="down"><span>Calories burned: </span><b id="carb">0</b>cal</div>
+        </div>
+       <script>
+  function calculate(){
+      let MET=0.95//sleep
+     let weight= document.getElementById("weight").value
+let sleep=document.getElementById("sleep").value*60
+ let result=((weight*MET*3.5)/200)*sleep
+//alert(`${weight} ${sleep} ${result}`)
+
+ document.getElementById("carb").innerText=result
+  }
+           
+       </script> 
+    </body>
+    
+    
+    
+    
+    
+    
+    
+</html>
